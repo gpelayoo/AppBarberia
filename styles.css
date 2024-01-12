@@ -361,11 +361,12 @@ body{
 
 .slider_text{
     position: absolute;
-    top: 80%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #000;
+    color: #fff;
     font-size: 1rem;
+    font-weight: bold;
 }
 
 .slider_text h3{
@@ -373,8 +374,7 @@ body{
     margin-bottom: 10px;
     font-family: 'Montserrat', sans-serif;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
-    color: #fff;
+    font-size: 2rem;
 }
 
 footer{
@@ -386,3 +386,231 @@ footer{
 }
 
 /*Home styles */
+
+/*Turnos styles*/
+
+.t-main{
+    color: #fff;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(315deg, #535353, #1b1b1b);
+    padding: 10px;
+}
+
+.t-container{
+    max-width: 700px;
+    width: 100%;
+    padding: 25px 30px;
+    border-radius: 25px;
+    background: linear-gradient(315deg, #1f1e1e, #808080);
+}
+
+.t-container .heading{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    text-align: center;
+    padding: 0 0 20px 0;
+}
+
+.t-container .heading::before{
+    content: '';
+    position: absolute;
+    height: 3px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #000000, #fdfdfd);
+}
+
+.t-container form .card-details{
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+form .card-details .card-box{
+    width: calc(100%/2 - 20px);
+    margin-bottom: 15px;
+}
+
+.card-details .card-box .details{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.card-details .card-box input,
+.card-details .card-box select{
+    height: 35px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #dadada;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.t-container form .t-button{
+    text-align: center;
+}
+
+.t-container form .t-button input{
+    padding: 10px 0;
+    margin-top: 10px;
+    height: 100%;
+    width: 50%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: linear-gradient(315deg, #616161, #202020);
+}
+
+.t-container form .t-button input:hover{
+    background: linear-gradient(-315deg, #616161, #202020);
+}
+
+@media (max-width:584px){
+    .t-container{
+        max-width: 100%;
+    }
+
+    form .card-details .card-box{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .t-container form .card-details{
+        max-height: 300px;
+        overflow: scroll;
+    }
+}
+
+/*Turnos styles*/
+
+/* Servicios styles*/
+
+.s-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(315deg, #535353, #1b1b1b);
+}
+
+.s-container{
+    max-width: 1120px;
+    width: 100%;
+    padding: 40px 0;
+}
+
+.s-content{
+    margin: 0 40px;
+}
+
+.card-wrapper{
+    display: flex;
+}
+
+.card{
+    width: 320px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+    margin: 15px;
+}
+
+.image-content,
+.card-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 14px;
+}
+
+.image-content{
+    row-gap: 5px;
+    position: relative;
+    padding: 25px 0;
+}
+
+.s-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    border-radius: 25px 25px 0 25px;
+}
+
+.s-overlay::before,
+.s-overlay::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    height: 40px;
+    width: 40px;
+    background-color: #000;
+}
+
+.s-overlay::after{
+    border-radius: 0 25px 0 0;
+    background-color: #fff;
+}
+
+.card-image{
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 3px;
+}
+
+.card-image .card-img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #e08938;
+}
+
+.service-name{
+    text-align: center;
+    margin-top: 7px;
+}
+
+.s-description{
+    font-size: 14px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.btn-service{
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    padding: 8px 16px;
+    background-color: #4070F4;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-service:hover{
+    background-color: #265df2;
+}
+
+
+/* Servicios styles*/

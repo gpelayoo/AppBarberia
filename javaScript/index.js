@@ -17,7 +17,7 @@ document.addEventListener("click", (e)=>{
     if(e.target === submit){
         if(password.value !== "" && username.value !== ""){
             e.preventDefault();
-            window.location.href = "./views/home.html";
+            window.location.href = "../views/home.html";
         }
     }
 })
