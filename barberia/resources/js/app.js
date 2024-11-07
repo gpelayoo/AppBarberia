@@ -1,5 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
@@ -8,6 +10,9 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 //Components
 import SliderComponent from './Pages/Components/SliderComponent.vue';
 import HeaderComponent from './Pages/Components/HeaderComponent.vue';
+
+import Usuarios from './Pages/Users/Usuarios.vue';
+import UsuariosEdit from './Pages/Users/UsuariosEdit.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -18,6 +23,8 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .component('SliderComponent', SliderComponent)
             .component('HeaderComponent', HeaderComponent)
+            .component('Usuarios', Usuarios)
+            .component('UsuariosEdit', UsuariosEdit)
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);
