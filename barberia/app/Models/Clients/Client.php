@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Turnos;
+namespace App\Models\Clients;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Turno extends Model
+class Client extends Model
 {
     use HasFactory;
 
@@ -16,10 +16,5 @@ class Turno extends Model
         'lastname',
         'cellphone',
         'email',
-        'date',
-        'time',
-        'service_name',
-        'barber_name',
     ];
-
 }

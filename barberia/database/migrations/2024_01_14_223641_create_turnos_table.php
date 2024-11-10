@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('turnos', function (Blueprint $table) {
             $table->id();
-            $table->string('document_type');
             $table->string('document_number');
             $table->string('name');
             $table->string('lastname');

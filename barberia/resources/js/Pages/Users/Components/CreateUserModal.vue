@@ -1,3 +1,46 @@
+<script>
+import { ref } from 'vue';
+import axios from 'axios';
+import { Inertia } from '@inertiajs/inertia';
+
+export default {
+    setup() {
+        const name = ref('');
+        const email = ref('');
+        const password = ref('');
+        const password_confirmation = ref('');
+        const role = ref('');
+
+        const storeUser = async () => {
+            try {
+                await axios.post(route('usuarios.store'), {
+                    name: name.value,
+                    email: email.value,
+                    password: password.value,
+                    password_confirmation: password_confirmation.value,
+                    role: role.value,
+                });
+
+                alert('Usuario creado correctamente');
+                Inertia.get(route('usuarios')); 
+            
+            } catch (error) {
+                console.error(error);
+                alert('Hubo un problema al crear el usuario');
+            }
+        };
+
+        return {
+            name,
+            email,
+            password,
+            password_confirmation,
+            role,
+            storeUser
+        };
+    }
+};
+</script>
 <template>
     <div
         class="modal fade"
@@ -40,6 +83,18 @@
                             />
                         </div>
                         <div class="mb-3">
+                            <label for="role" class="form-label">Rol</label>
+                            <select
+                                class="form-select"
+                                id="role"
+                                v-model="role"
+                                required
+                            >
+                                <option value="Admin">Administrador</option>
+                                <option value="Barbero">Barbero</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="password" class="form-label">Contraseña</label>
                             <input
                                 type="password"
@@ -67,31 +122,4 @@
     </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import axios from 'axios';
-import { Inertia } from '@inertiajs/inertia';
 
-const name = ref('');
-const email = ref('');
-const password = ref('');
-const password_confirmation = ref('');
-
-const storeUser = async () => {
-    try {
-        const response = await axios.post(route('usuarios.store'), {
-            name: name.value,
-            email: email.value,
-            password: password.value,
-            password_confirmation: password_confirmation.value,
-        });
-
-        alert('Usuario creado correctamente');
-        Inertia.get(route('usuarios')); 
-    
-    } catch (error) {
-        console.error(error);
-        alert('Hubo un problema al crear el usuario');
-    }
-};
-</script>

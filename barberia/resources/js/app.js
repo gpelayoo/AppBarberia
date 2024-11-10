@@ -13,6 +13,10 @@ import HeaderComponent from './Pages/Components/HeaderComponent.vue';
 
 import Usuarios from './Pages/Users/Usuarios.vue';
 import UsuariosEdit from './Pages/Users/UsuariosEdit.vue';
+import Turnos from './Pages/Turnos/Turnos.vue';
+import TurnosEdit from './Pages/Turnos/TurnosEdit.vue';
+import Clients from './Pages/Clients/Clients.vue';
+import ClientsEdit from './Pages/Clients/ClientsEdit.vue';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -25,6 +29,10 @@ createInertiaApp({
             .component('HeaderComponent', HeaderComponent)
             .component('Usuarios', Usuarios)
             .component('UsuariosEdit', UsuariosEdit)
+            .component('Turnos', Turnos)
+            .component('TurnosEdit', TurnosEdit)
+            .component('Clients', Clients)
+            .component('ClientsEdit', ClientsEdit)
             .use(plugin)
             .use(ZiggyVue)
             .mount(el);

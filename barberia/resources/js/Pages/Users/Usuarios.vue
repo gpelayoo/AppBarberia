@@ -1,40 +1,49 @@
-<script setup>
-    import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head } from '@inertiajs/vue3';
-    import { usePage } from '@inertiajs/vue3';
-    import { Inertia } from '@inertiajs/inertia';
-    import CreateUserModal from '@/Pages/Users/Components/CreateUserModal.vue';
-    import axios from 'axios';
+<script>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
+import { Inertia } from '@inertiajs/inertia';
+import CreateUserModal from '@/Pages/Users/Components/CreateUserModal.vue';
+import axios from 'axios';
 
-
-    const { usuarios } = usePage().props;
-
-    const editUser = (id) => {
-        Inertia.get(route('usuarios.edit', id)); 
-    };
-
-    const showModal = () => {
-        const modal = new bootstrap.Modal(document.getElementById('createUserModal'));
-        modal.show();
-    };
-
-    const deleteUser = async (id) => {
-        if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-            try {
-                await axios.post(route('usuarios.delete', id));
-                const index = usuarios.findIndex(user => user.id === id);
-                if (index !== -1) {
-                    usuarios.splice(index, 1);
+export default {
+    components: {
+        AuthenticatedLayout,
+        Head,
+        CreateUserModal
+    },
+    data() {
+        return {
+            usuarios: usePage().props.usuarios,
+        };
+    },
+    methods: {
+        editUser(id) {
+            Inertia.get(route('usuarios.edit', id));
+        },
+        showModal() {
+            const modal = new bootstrap.Modal(document.getElementById('createUserModal'));
+            modal.show();
+        },
+        async deleteUser(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
+                try {
+                    await axios.post(route('usuarios.delete', id));
+                    const index = this.usuarios.findIndex(user => user.id === id);
+                    if (index !== -1) {
+                        this.usuarios.splice(index, 1);
+                    }
+                    alert('Usuario eliminado correctamente.');
+                } catch (error) {
+                    console.error(error);
+                    alert('Hubo un problema al eliminar el usuario.');
                 }
-                alert('Usuario eliminado correctamente.');
-            } catch (error) {
-                console.error(error);
-                alert('Hubo un problema al eliminar el usuario.');
             }
         }
-    };
-
+    }
+};
 </script>
+
 
 <template>
     <Head title="Usuarios" />
@@ -56,6 +65,7 @@
                                 <th scope="col">Id</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Rol</th>
                                 <th scope="col">Acciones</th> 
                             </tr>
                         </thead>
@@ -64,6 +74,7 @@
                                 <td>{{ usuario.id }}</td>
                                 <td>{{ usuario.name }}</td>
                                 <td>{{ usuario.email }}</td>
+                                <td>{{ usuario.role }}</td>
                                 <td>
                                     <button @click="editUser(usuario.id)" class="btn btn-primary me-2">
                                         <i class="fas fa-edit"></i>

@@ -1,4 +1,4 @@
-<script setup>
+<script>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { ref } from 'vue';
 import { usePage } from '@inertiajs/vue3';
@@ -6,34 +6,54 @@ import { Head } from '@inertiajs/vue3';
 import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
 
-const { usuario } = usePage().props;
+export default {
+    components: {
+        AuthenticatedLayout,
+        Head
+    },
+    setup() {
+        const { usuario } = usePage().props;
+        
+        const name = ref(usuario.name);
+        const email = ref(usuario.email);
+        const role = ref(usuario.role);
+        const password = ref('');
+        const password_confirmation = ref('');
+        const successMessage = ref('');
+        const err = ref('');
 
-const name = ref(usuario.name);
-const email = ref(usuario.email);
-const password = ref('');
-const password_confirmation = ref('');
-const successMessage = ref('');
-const err = ref('');
+        const updateUser = async () => {
+            try {
+                await axios.post(`/usuarios/update/${usuario.id}`, {
+                    name: name.value,
+                    email: email.value,
+                    role: role.value,
+                    password: password.value,
+                    password_confirmation: password_confirmation.value,
+                });
+                successMessage.value = 'Usuario actualizado correctamente';
+                err.value = '';
+                Inertia.get(route('usuarios')); 
+            } catch (error) {
+                err.value = 'Error al actualizar el usuario. Intenta nuevamente.';
+                console.error(error);
+            }
+        };
 
-const updateUser = async () => {
-    try {
-        const response = await axios.post(`/usuarios/update/${usuario.id}`, {
-            name: name.value,
-            email: email.value,
-            password: password.value,
-            password_confirmation: password_confirmation.value,
-        });
-
-        successMessage.value = 'Usuario actualizado correctamente';
-        err.value = '';
-        Inertia.get(route('usuarios')); 
-
-    } catch (err) {
-        err.value = 'Error al actualizar el usuario. Intenta nuevamente.';
-        console.error(err);
+        return {
+            name,
+            email,
+            role,
+            password,
+            password_confirmation,
+            successMessage,
+            err,
+            updateUser
+        };
     }
 };
 </script>
+
 
 <template>
     <Head title="Editar Usuario" />
@@ -66,6 +86,19 @@ const updateUser = async () => {
                                     v-model="email" 
                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 />
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="role" class="form-label">Rol</label>
+                                <select
+                                    class="form-select"
+                                    id="role"
+                                    v-model="role"
+                                    required
+                                >
+                                    <option value="Admin">Administrador</option>
+                                    <option value="Barbero">Barbero</option>
+                                </select>
                             </div>
 
                             <div class="mb-4">

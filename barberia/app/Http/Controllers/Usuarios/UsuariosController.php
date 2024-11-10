@@ -12,7 +12,7 @@ class UsuariosController extends Controller
 {
     public function index()
     {
-        $usuarios = User::select('id', 'name', 'email')->get();  
+        $usuarios = User::select('id', 'name', 'email', 'role')->get();  
 
         return Inertia::render('Users/Usuarios', [
             'usuarios' => $usuarios,
@@ -34,11 +34,13 @@ class UsuariosController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'nullable|string',
         ]);
 
         $usuario = User::findOrFail($id);
         $usuario->name = $request->name;
         $usuario->email = $request->email;
+        $usuario->role = $request->role;
 
         if ($request->password) {
             $usuario->password = Hash::make($request->password);
@@ -55,12 +57,14 @@ class UsuariosController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string',
         ]);
 
         $usuario = new User();
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
+        $usuario->role = $request->role;
         $usuario->save();
 
         return redirect()->route('usuarios')->with('success', 'Usuario creado correctamente.');
@@ -73,6 +77,12 @@ class UsuariosController extends Controller
         $usuario->delete();
 
         return redirect()->route('usuarios')->with('success', 'Usuario eliminado correctamente.');
+    }
+
+    public function getBarbers()
+    {
+        $users = User::where('role','Barbero')->get();
+        return response()->json($users);
     }
 
 
